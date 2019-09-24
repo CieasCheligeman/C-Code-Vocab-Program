@@ -22,6 +22,7 @@ int main(){
     string fileName = "unknown";
     ofstream outputFile;
     bool continues = true;
+    int storeReview = 0;
     while (continues) {
         //interface input.
         cout << "If you want to do the review enter R, if you want to start a new project enter P, if you want to quit the program enter Q: ";
@@ -31,6 +32,7 @@ int main(){
         
         if ( enter == 'P' || enter == 'p' )
         {
+            storeReview = 0; //in case there are mutiple projects to run and because the initial initialization only run for one time.
             cout << endl;cout << endl;
             cout << "Enter the new project section -- " << endl;
             cout << endl;cout << endl;
@@ -42,46 +44,46 @@ int main(){
              *                                                                                     *
              ***************************************************************************************/
             string vocab;
-        
+            
             const string LONGLINE = "*********************************************";
-        
-        
+            
+            
             int score = 0;
-        
+            
             double finalScore = 0.0;
-        
+            
             int reCheckNum = 0;
-        
+            
             double wrongScore = 0;
-        
+            
             double percent = 0.0;
-        
+            
             int lineSeperator = 0;
-        
+            
             int vocabNum = 0;
-        
+            
             int incorrectNum = 0;
-        
+            
             string mean;
-        
+            
             string input;
-        
+            
             ifstream file;
-        
+            
             string choice;
-        
+            
             int ans_reveal = 0;
-        
+            
             int k = 0;
-        
+            
             string u_file;
-        
+            
             cout << "enter your vocab file's name(the format of the txt file need to be [vocab 'blank' meaning]): " ;
-        
+            
             getline(cin, u_file);
-        
+            
             file.open(u_file.c_str());
-        
+            
             cout << "Choose a way you want to recite the vocabs:" << endl;
             cout << "                   -Enter vm for vocab to meaning" << endl;
             cout << "                   -Enter mv for meaning to vocab" << endl;
@@ -143,7 +145,7 @@ int main(){
                 }//END of while ( file >> vocab >> mean )
                 
             }
-        
+            
             else if ( choice == "vm" )
             {
                 reCheck.clear();// reuseable
@@ -172,7 +174,7 @@ int main(){
                                 incorrectNum++ ;
                             }
                             wrongLimit++ ;
-                            cout << "The right answer is: " << mean << endl;
+                            cout << "The right answer is: " << vocab << endl;
                         }
                         cout << "check your answer, and enter it again: (control c to end the process)" ;
                         wrongNum++ ;
@@ -187,31 +189,31 @@ int main(){
                     reCheckNum = 0;
                 }//END of while ( file >> vocab >> mean )
             }
-        
+            
             else
             {
                 cout << "Please Enter the right choice letters" << endl;
                 continue;
             }
-        
+            
             percent = (score - wrongScore) / score;
-        
+            
             finalScore = 100.0 * percent;
-        
+            
             cout << LONGLINE << endl;
-        
+            
             cout << "congrats! you finished!" << endl;
-        
+            
             cout << "You have recited " << vocabNum << " vocabularies today! " << endl;
-        
+            
             cout << LONGLINE << endl;
-        
+            
             cout << "the overall wrong trials calculated by computer are: " << wrongNum << endl;
-        
+            
             cout << "the overall vocabulary numbers you currently couldn't recite it are: " << incorrectNum << endl;
-        
+            
             cout << LONGLINE << endl;
-        
+            
             cout << "your final score is(System only calculates you wrong after revealing the correct answer, the top score is 100) : " << round(finalScore) <<  endl;
             if ( finalScore == 100 ) {
                 cout << "Oh my gosh, 100% correct, you are so great bud!" << endl;
@@ -225,9 +227,9 @@ int main(){
             if ( finalScore < 60 ) {
                 cout << "Come on bud, i know you are better than this! Just do one or two more rounds of review ok? " << endl;
             }
-        
+            
             cout << LONGLINE << endl;
-        
+            
             //review cheat sheet.
             /***************************************************************************************
              *                                                                                     *
@@ -267,82 +269,148 @@ int main(){
             cout << "Quit the new project section -- " << endl;
             cout << endl;
             cout << endl;
-    }//END of first if.
-    
-    if ( enter == 'R' || enter == 'r' )
-    {
-        cout << endl;
-        cout << endl;
-        cout << "Enter the review section -- " << endl;
-        cout << endl;
-        cout << endl;
+        }//END of first if.
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         /***************************************************************************************
          *                                                                                     *
-         *                             parameter declaration                                   *
+         *                             Review section                                          *
          *                                                                                     *
          *                                                                                     *
          *                                                                                     *
          ***************************************************************************************/
-        int score = 0;
-        int lineSeperator = 0;
-        int reCheckNum = 0;
-        ofstream inPtfile;
-        double wrongScore = 0;
-        
-        int vocabNum = 0;
-        
-        int incorrectNum = 0;
-        
-        string mean;
-        
-        string input;
-        
-        ifstream file;
-        
-        string choice;
-        
-        string vocab;
-        
-        int ans_reveal = 0;
-        
-        int wrongLimit = 0;
-        int k = 0;
-        ifstream outputFile;
-    
-        
-       int wrongNum = 0;
-        if ( reCheck.size() == 0 ){
-            cout << "Please start a project using P to activate first. " << endl;
-            continue;}
-        else{
-            string choice = "unknown";
-            outputFile.open(fileName.c_str());
+        if ( enter == 'R' || enter == 'r' )
+        {
+            cout << endl;
+            cout << endl;
+            cout << "Enter the review section -- " << endl;
+            cout << endl;
+            cout << endl;
             
-            cout << "Choose a way you want to recite the vocabs:" << endl;
-            cout << "                   -Enter vm for vocab to meaning" << endl;
-            cout << "                   -Enter mv for meaning to vocab" << endl;
-            cout << "Your choice: " ;
-            cin >> choice;
-            cin.ignore(100,'\n');
             /***************************************************************************************
              *                                                                                     *
-             *                             execution part                                          *
+             *                             parameter declaration                                   *
              *                                                                                     *
              *                                                                                     *
              *                                                                                     *
              ***************************************************************************************/
-            if ( choice == "mv" )
-            {
-                reCheck.clear();// reuseable
-                while ( outputFile >> vocab >> mean )
+            int score = 0;
+            int lineSeperator = 0;
+            int reCheckNum = 0;
+            ofstream inPtfile;
+            double wrongScore = 0;
+            
+            int vocabNum = 0;
+            
+            int incorrectNum = 0;
+            
+            string mean;
+            
+            string input;
+            
+            ifstream file;
+            
+            string choice;
+            
+            string vocab;
+            
+            int ans_reveal = 0;
+            
+            int wrongLimit = 0;
+            int k = 0;
+            ifstream outputFile;
+            
+            
+            int wrongNum = 0;
+            if ( reCheck.size() == 0 ){
+                cout << "Please start a project using P to activate first. " << endl;
+                continue;}
+            else{
+                string choice = "unknown";
+                outputFile.open(fileName.c_str());
+                
+                cout << "Choose a way you want to recite the vocabs:" << endl;
+                cout << "                   -Enter vm for vocab to meaning" << endl;
+                cout << "                   -Enter mv for meaning to vocab" << endl;
+                cout << "Your choice: " ;
+                cin >> choice;
+                cin.ignore(100,'\n');
+                /***************************************************************************************
+                 *                                                                                     *
+                 *                             execution part                                          *
+                 *                                                                                     *
+                 *                                                                                     *
+                 *                                                                                     *
+                 ***************************************************************************************/
+                if ( choice == "mv" )
                 {
-                    score++ ;
-                    ans_reveal = 0;
-                    vocabNum++ ;
-                    cout << "what's the vocab of " << mean << " ?: ";
-                    getline(cin,input);
-                    while( input != vocab && k == 0){
+                    reCheck.clear();// reuseable
+                    while ( outputFile >> vocab >> mean )
+                    {
+                        score++ ;
+                        ans_reveal = 0;
+                        vocabNum++ ;
+                        cout << "what's the vocab of " << mean << " ?: ";
+                        getline(cin,input);
+                        while( input != vocab && k == 0){
+                            if ( reCheckNum == 0 )
+                            {
+                                reCheck.push_back(vocab);
+                                reCheck.push_back(" ");
+                                reCheck.push_back(mean);
+                                reCheck.push_back(" ");  //in case the format get mess up.
+                            }
+                            ans_reveal++ ;
+                            if ( ans_reveal > 2 )
+                            {
+                                //for avoiding multiple subtracting.
+                                if ( wrongLimit == 0 )
+                                {
+                                    wrongScore++ ;
+                                    incorrectNum++ ;
+                                }
+                                wrongLimit++ ;
+                                cout << "The right answer is: " << vocab << endl;
+                            }
+                            cout << "check your answer, and enter it again (control c to end the process): " ;
+                            wrongNum++ ;
+                            getline(cin,input);
+                            if (input == vocab)
+                                //break the loop;
+                                k = 1;
+                            reCheckNum++ ;
+                        }
+                        cout << "you are correct" << endl;
+                        // for while loop execute again.
+                        k = 0;
+                        reCheckNum = 0;
+                    }//END of while ( file >> vocab >> mean )
+                    
+                }
+                /***************************************************************************************
+                 *                                                                                     *
+                 *                             execution part                                          *
+                 *                                                                                     *
+                 *                                                                                     *
+                 *                                                                                     *
+                 ***************************************************************************************/
+                else if ( choice == "vm" )
+                {
+                    reCheck.clear();// reuseable
+                    while ( outputFile >> mean >> vocab )
+                    {
+                        score++ ;
+                        int wrongLimit = 0;
                         if ( reCheckNum == 0 )
                         {
                             reCheck.push_back(vocab);
@@ -350,32 +418,40 @@ int main(){
                             reCheck.push_back(mean);
                             reCheck.push_back(" ");  //in case the format get mess up.
                         }
-                        ans_reveal++ ;
-                        if ( ans_reveal > 2 )
-                        {
-                            //for avoiding multiple subtracting.
-                            if ( wrongLimit == 0 )
-                            {
-                                wrongScore++ ;
-                                incorrectNum++ ;
-                            }
-                            wrongLimit++ ;
-                            cout << "The right answer is: " << vocab << endl;
-                        }
-                        cout << "check your answer, and enter it again (control c to end the process): " ;
-                        wrongNum++ ;
+                        ans_reveal = 0;
+                        vocabNum++ ;
+                        cout << "what's the meaning of " << mean << " ?: ";
                         getline(cin,input);
-                        if (input == vocab)
-                            //break the loop;
-                            k = 1;
-                        reCheckNum++ ;
-                    }
-                    cout << "you are correct" << endl;
-                    // for while loop execute again.
-                    k = 0;
-                    reCheckNum = 0;
-                }//END of while ( file >> vocab >> mean )
-                
+                        while( input != vocab && k == 0){
+                            ans_reveal++ ;
+                            if ( ans_reveal > 2 )
+                            {
+                                if ( wrongLimit == 0 )
+                                {
+                                    wrongScore++ ;
+                                    incorrectNum++ ;
+                                }
+                                wrongLimit++ ;
+                                cout << "The right answer is: " << vocab << endl;
+                            }
+                            cout << "check your answer, and enter it again: (control c to end the process)" ;
+                            wrongNum++ ;
+                            getline(cin,input);
+                            if (input == vocab)
+                                //break the loop;
+                                k = 1;
+                        }
+                        cout << "you are correct" << endl;
+                        // for while loop execute again.
+                        k = 0;
+                        reCheckNum = 0;
+                    }//END of while ( file >> vocab >> mean )
+                }
+                else
+                {
+                    cout << "Please Enter the right choice letters" << endl;
+                    continue;
+                }
             }
             /***************************************************************************************
              *                                                                                     *
@@ -384,90 +460,57 @@ int main(){
              *                                                                                     *
              *                                                                                     *
              ***************************************************************************************/
-            else if ( choice == "vm" )
+            
+            
+            
+            inPtfile.clear();
+            
+            
+            
+            //in case for empty review sheet shown.
+            
+            
+            if ( reCheck.size() > 0 )
             {
-                reCheck.clear();// reuseable
-                while ( outputFile >> mean >> vocab )
+                cout << "some review cheat sheet to receive: " << endl;
+                if ( storeReview == 0 )
                 {
-                    score++ ;
-                    int wrongLimit = 0;
-                    if ( reCheckNum == 0 )
+                    cout << "Recheck/redefine the file you want to store the review sheet: ";
+                    cin >> fileName;
+                    cin.ignore(1000,'\n');
+                    storeReview++ ;
+                }
+                inPtfile.open(fileName.c_str()); //this will never generate an error since the first time u run this part storeReview is 0.
+                cout << "-----------------------------------------------------------------" << endl;
+                for (int i = 0; i < reCheck.size(); i ++)
+                {
+                    if ( lineSeperator > 3 )
                     {
-                        reCheck.push_back(vocab);
-                        reCheck.push_back(" ");
-                        reCheck.push_back(mean);
-                        reCheck.push_back(" ");  //in case the format get mess up.
+                        cout << endl;
+                        lineSeperator = 0;
                     }
-                    ans_reveal = 0;
-                    vocabNum++ ;
-                    cout << "what's the meaning of " << mean << " ?: ";
-                    getline(cin,input);
-                    while( input != vocab && k == 0){
-                        ans_reveal++ ;
-                        if ( ans_reveal > 2 )
-                        {
-                            if ( wrongLimit == 0 )
-                            {
-                                wrongScore++ ;
-                                incorrectNum++ ;
-                            }
-                            wrongLimit++ ;
-                            cout << "The right answer is: " << mean << endl;
-                        }
-                        cout << "check your answer, and enter it again: (control c to end the process)" ;
-                        wrongNum++ ;
-                        getline(cin,input);
-                        if (input == vocab)
-                            //break the loop;
-                            k = 1;
-                    }
-                    cout << "you are correct" << endl;
-                    // for while loop execute again.
-                    k = 0;
-                    reCheckNum = 0;
-                }//END of while ( file >> vocab >> mean )
-            }
-            else
-            {
-                cout << "Please Enter the right choice letters" << endl;
-                continue;
-            }
-        }
-        cout << "some review cheat sheet to receive: " << endl;
-        cout << "Enter the file you want to store the review sheet: ";
-        cin >> fileName;
-        cin.ignore(1000,'\n');
-        inPtfile.open(fileName.c_str());
-        cout << "-----------------------------------------------------------------" << endl;
-        /***************************************************************************************
-         *                                                                                     *
-         *                             execution part                                          *
-         *                                                                                     *
-         *                                                                                     *
-         *                                                                                     *
-         ***************************************************************************************/
-        inPtfile.clear();
-        for (int i = 0; i < reCheck.size(); i ++)
-        {
-            if ( lineSeperator > 3 )
-            {
+                    cout << reCheck.at(i);
+                    inPtfile << reCheck.at(i);
+                    lineSeperator++ ;
+                }
                 cout << endl;
-                lineSeperator = 0;
+                cout << "-----------------------------------------------------------------" << endl;
+                inPtfile.close();
+                outputFile.close();
             }
-            cout << reCheck.at(i);
-            inPtfile << reCheck.at(i);
-            lineSeperator++ ;
-        }
-        cout << endl;
-        cout << "-----------------------------------------------------------------" << endl;
-        inPtfile.close();
-        outputFile.close();
-        cout << endl;
-        cout << endl;
-        cout << "Quit the review section -- (you can choose R again to recite the ramaining vocab in the review sheet if you want.)" << endl;
-        cout << endl;
-        cout << endl;
-    }//END of second if.
+            
+            else
+                cout << "congrats you finish all of the remaining vocabs! " << endl;
+            
+            
+            cout << endl;
+            cout << endl;
+            cout << "Quit the review section -- (you can choose R again to recite the ramaining vocab in the review sheet if you want.)" << endl;
+            cout << endl;
+            cout << endl;
+            
+            
+        }//END of second if.
         /***************************************************************************************
          *                                                                                     *
          *                             quitting                                                *
@@ -483,8 +526,8 @@ int main(){
         if ( enter != 'q' && enter != 'Q' && enter != 'r' && enter != 'R' && enter != 'p' && enter != 'P' ){
             cout << "Please enter a right choice. " << endl;
         }
-}//END of while.
-        
+    }//END of while.
+    
     
     return 0;
     //normal exit.
