@@ -1,3 +1,10 @@
+/***************************************************************************************
+ *                                                                                     *
+ *                             Creator: Cieas Chen/Cheligeman                          *
+ *                                      Upload Date: Oct 6th.                          *
+ *                                      Version 1.1.2                                  *
+ *                                                                                     *
+ ***************************************************************************************/
 #include <iostream>
 #include <string>
 #include <cctype>
@@ -110,6 +117,7 @@ int main(){
                     int wrongLimit = 0;
                     cout << "what's the vocab of " << mean << " ?: ";
                     getline(cin,input);
+                    int limitTrial = 0;
                     while( input != vocab && k == 0){
                         if ( reCheckNum == 0 )
                         {
@@ -133,12 +141,25 @@ int main(){
                         cout << "check your answer, and enter it again (control c to end the process): " ;
                         wrongNum++ ;
                         getline(cin,input);
+                        
+                        limitTrial = ans_reveal; // for elimiting the another ++ command.
+                        
                         if (input == vocab)
                             //break the loop;
-                            k = 1;
+                            k = 2;
+                        else
+                        {
+                            if ( limitTrial > 4 )
+                                k = 1; // END the program in case the user feel extreme frastrated about infinite loop of trails.
+                        }
+                        
+                        
                         reCheckNum++ ;
                     }
-                    cout << "you are correct" << endl;
+                    if ( k == 2 )
+                        cout << "you are correct" << endl;
+                    else
+                        cout << "you have tried so many times, move to the next one!" << endl;
                     // for while loop execute again.
                     k = 0;
                     reCheckNum = 0;
@@ -153,18 +174,19 @@ int main(){
                 {
                     score++ ;
                     int wrongLimit = 0;
-                    if ( reCheckNum == 0 )
-                    {
-                        reCheck.push_back(vocab);
-                        reCheck.push_back(" ");
-                        reCheck.push_back(mean);
-                        reCheck.push_back(" ");  //in case the format get mess up.
-                    }
+                    int limitTrial = 0;
                     ans_reveal = 0;
                     vocabNum++ ;
                     cout << "what's the meaning of " << mean << " ?: ";
                     getline(cin,input);
                     while( input != vocab && k == 0){
+                        if ( reCheckNum == 0 )
+                        {
+                            reCheck.push_back(vocab);
+                            reCheck.push_back(" ");
+                            reCheck.push_back(mean);
+                            reCheck.push_back(" ");  //in case the format get mess up.
+                        }
                         ans_reveal++ ;
                         if ( ans_reveal > 2 )
                         {
@@ -179,11 +201,22 @@ int main(){
                         cout << "check your answer, and enter it again: (control c to end the process)" ;
                         wrongNum++ ;
                         getline(cin,input);
+                        
+                        limitTrial = ans_reveal; // for elimiting the another ++ command.
+                        
                         if (input == vocab)
                             //break the loop;
-                            k = 1;
+                            k = 2;
+                        else
+                        {
+                            if ( limitTrial > 4 )
+                                k = 1; // END the program in case the user feel extreme frastrated about infinite loop of trails.
+                        }
                     }
-                    cout << "you are correct" << endl;
+                    if ( k == 2 )// deleting the ans_reveal <= 4 in case when input = vocab but ans_reveal = 5.
+                        cout << "you are correct" << endl;
+                    else
+                        cout << "you have tried so many times, move to the next one!" << endl;
                     // for while loop execute again.
                     k = 0;
                     reCheckNum = 0;
@@ -240,7 +273,7 @@ int main(){
              *********************t******************************************************************/
             if ( finalScore != 100 )
             {
-                cout << "By the way, you still get some review cheat sheet to receive: " << endl;
+                cout << "By the way, you still get some review cheat sheet to receive." << endl;
                 cout << "Enter the file you want to store the review sheet: ";
                 cin >> fileName;
                 cin.ignore(1000,'\n');
@@ -326,7 +359,6 @@ int main(){
             
             int ans_reveal = 0;
             
-            int wrongLimit = 0;
             int k = 0;
             ifstream outputFile;
             
@@ -360,8 +392,10 @@ int main(){
                         score++ ;
                         ans_reveal = 0;
                         vocabNum++ ;
+                        int wrongLimit = 0;
                         cout << "what's the vocab of " << mean << " ?: ";
                         getline(cin,input);
+                        int limitTrial = 0;
                         while( input != vocab && k == 0){
                             if ( reCheckNum == 0 )
                             {
@@ -385,12 +419,25 @@ int main(){
                             cout << "check your answer, and enter it again (control c to end the process): " ;
                             wrongNum++ ;
                             getline(cin,input);
+                            
+                            limitTrial = ans_reveal; // for elimiting the another ++ command.
+                            
                             if (input == vocab)
                                 //break the loop;
-                                k = 1;
+                                k = 2;
+                            else
+                            {
+                                if ( limitTrial > 4 )
+                                    k = 1; // END the program in case the user feel extreme frastrated about infinite loop of trails.
+                            }
+                            
+                            
                             reCheckNum++ ;
                         }
-                        cout << "you are correct" << endl;
+                        if ( k == 2 )
+                            cout << "you are correct" << endl;
+                        else
+                            cout << "you have tried so many times, move to the next one!" << endl;
                         // for while loop execute again.
                         k = 0;
                         reCheckNum = 0;
@@ -411,18 +458,19 @@ int main(){
                     {
                         score++ ;
                         int wrongLimit = 0;
-                        if ( reCheckNum == 0 )
-                        {
-                            reCheck.push_back(vocab);
-                            reCheck.push_back(" ");
-                            reCheck.push_back(mean);
-                            reCheck.push_back(" ");  //in case the format get mess up.
-                        }
+                        int limitTrial = 0;
                         ans_reveal = 0;
                         vocabNum++ ;
                         cout << "what's the meaning of " << mean << " ?: ";
                         getline(cin,input);
                         while( input != vocab && k == 0){
+                            if ( reCheckNum == 0 )
+                            {
+                                reCheck.push_back(vocab);
+                                reCheck.push_back(" ");
+                                reCheck.push_back(mean);
+                                reCheck.push_back(" ");  //in case the format get mess up.
+                            }
                             ans_reveal++ ;
                             if ( ans_reveal > 2 )
                             {
@@ -437,11 +485,22 @@ int main(){
                             cout << "check your answer, and enter it again: (control c to end the process)" ;
                             wrongNum++ ;
                             getline(cin,input);
+                            
+                            limitTrial = ans_reveal; // for elimiting the another ++ command.
+                            
                             if (input == vocab)
                                 //break the loop;
-                                k = 1;
+                                k = 2;
+                            else
+                            {
+                                if ( limitTrial > 4 )
+                                    k = 1; // END the program in case the user feel extreme frastrated about infinite loop of trails.
+                            }
                         }
-                        cout << "you are correct" << endl;
+                        if ( k == 2 )
+                            cout << "you are correct" << endl;
+                        else
+                            cout << "you have tried so many times, move to the next one!" << endl;
                         // for while loop execute again.
                         k = 0;
                         reCheckNum = 0;
@@ -473,13 +532,6 @@ int main(){
             if ( reCheck.size() > 0 )
             {
                 cout << "some review cheat sheet to receive: " << endl;
-                if ( storeReview == 0 )
-                {
-                    cout << "Recheck/redefine the file you want to store the review sheet: ";
-                    cin >> fileName;
-                    cin.ignore(1000,'\n');
-                    storeReview++ ;
-                }
                 inPtfile.open(fileName.c_str()); //this will never generate an error since the first time u run this part storeReview is 0.
                 cout << "-----------------------------------------------------------------" << endl;
                 for (int i = 0; i < reCheck.size(); i ++)
@@ -510,7 +562,7 @@ int main(){
             cout << endl;
             
             
-        }//END of second if.
+        }//END of second review section.
         /***************************************************************************************
          *                                                                                     *
          *                             quitting                                                *
